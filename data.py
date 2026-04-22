@@ -15,7 +15,6 @@ coco_name_id_map = {cat["name"]: cat["id"] for cat in coco_categories}
 
 
 class RemappedDataset(Dataset):
-
     def __init__(self, dataset: Dataset, remapping: dict[int, int]):
         self.dataset = dataset
         self.remapping = remapping
@@ -36,7 +35,6 @@ class RemappedDataset(Dataset):
 
 @dataclass
 class DataSource:
-
     name: str
     manual_download_alt: str
     drive_download_uri: str | None = None
@@ -128,6 +126,7 @@ def load_datasets(
     sources: Iterable[DataSource] | None = None,
     data_folder: str | Path | None = None,
     json_name="_annotations.coco.json",
+    subfolders: list[str] = ["train", "test", "valid"],
 ):
     if sources is None:
         sources = all_data_sources
@@ -139,7 +138,7 @@ def load_datasets(
 
     for source in sources:
         source_dir = Path(data_folder) / source.name
-        for subfolder in "train", "test", "valid":
+        for subfolder in subfolders:
             dataset = CocoDetection(
                 source_dir / subfolder,
                 str(source_dir / subfolder / json_name),
