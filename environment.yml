@@ -1,0 +1,13 @@
+name: cs5480_final
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.10
+  - pip
+  - pip:
+      - --extra-index-url https://download.pytorch.org/whl/cu128
+      - torch>=2.11.0
+      - torchvision>=0.26.0
+      - gdown>=6.0.0
+      - pycocotools>=2.0.11
